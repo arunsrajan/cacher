@@ -8,7 +8,7 @@ public class CacheConstants {
     public static final String CACHECREATEDSUCCESSFULLY = "Cache created successfully";
     public static final String CACHEREMOVEDSUCCESSFULLY = "Cache removed successfully";
     public static final String CACHEOBTAINEDSUCCESSFULLY = "Cache obtained successfully";
-    public static final String AUDITOBTAINEDSUCCESSFULLY = "Audit Obtained successfully";
+    public static final String AUDITOBTAINEDSUCCESSFULLY = "Audit obtained successfully";
     public static final String PROVIDECACHENAME = "Please provide mandatory field cache name";
     public static final String PROVIDECACHEEXPIRY = "Please provide mandatory field cache expiry";
     public static final String CACHENAME = "cacheName";

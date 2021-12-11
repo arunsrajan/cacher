@@ -14,4 +14,6 @@ public class ListConstants {
     public static final String LISTNOTAVAILABLEFORDELETION = "List Not available for deletion, List not created";
     public static final String LISTNOTAVAILABLEFORVALUESDELETION = "List Not available for deleting values, List not created";
     public static final String LISTNAME = "listName";
+    public static final String ADD = "/add";
+    public static final String VALUES = "/values";
 }

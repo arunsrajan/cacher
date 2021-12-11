@@ -58,7 +58,7 @@ public class ListProcessor implements Processor {
         if(!Objects.isNull(request.getPayload())){
             lists.get(request.getListName()).addAll(request.getPayload());
         }
-        exchange.setProperty("ListStatusMessage", "List Created Successfully");
+        exchange.setProperty("ListStatusMessage", "List created successfully");
     }
     public void processResponse(Exchange exchange) throws Exception {
         ListRequest request = (ListRequest) exchange.getProperty(LISTREQUEST);
@@ -82,7 +82,7 @@ public class ListProcessor implements Processor {
             throw new ListException(LISTTOBECREATED);
         }
         lists.get(request.getListName()).addAll(request.getPayload());
-        exchange.setProperty("ListStatusMessage", "List Added Successfully");
+        exchange.setProperty("ListStatusMessage", "List added successfully");
     }
     public synchronized void updateList(Exchange exchange) throws Exception {
         ConcurrentMap<String, ConcurrentMap<String, List>> map = (ConcurrentMap<String, ConcurrentMap<String, List>>) exchange.getProperty("CachePayload");
@@ -96,7 +96,7 @@ public class ListProcessor implements Processor {
             throw new ListException(LISTTOBECREATED);
         }
         lists.put(request.getListName(), request.getPayload());
-        exchange.setProperty("ListStatusMessage", "List Updated Successfully");
+        exchange.setProperty("ListStatusMessage", "List updated successfully");
     }
     public synchronized void removeList(Exchange exchange) throws Exception {
         ConcurrentMap<String, ConcurrentMap<String, List>> map = (ConcurrentMap<String, ConcurrentMap<String, List>>) exchange.getProperty("CachePayload");
@@ -107,7 +107,7 @@ public class ListProcessor implements Processor {
             throw new ListException(LISTNOTAVAILABLEFORDELETION);
         }
         lists.remove(request.getListName());
-        exchange.setProperty("ListStatusMessage", "List Removed Successfully");
+        exchange.setProperty("ListStatusMessage", "List removed successfully");
     }
 
     public synchronized void removeListValues(Exchange exchange) throws Exception {
@@ -122,7 +122,7 @@ public class ListProcessor implements Processor {
             throw new ListException(EMPTYLISTCANNOTEREMOVED);
         }
         lists.get(request.getListName()).removeAll(request.getPayload());
-        exchange.setProperty("ListStatusMessage", "List Values Removed Successfully");
+        exchange.setProperty("ListStatusMessage", "List values removed successfully");
     }
 
     public void processErrorResponse(Exchange exchange) throws Exception {
@@ -144,6 +144,6 @@ public class ListProcessor implements Processor {
             throw new ListException(LISTTOBECREATED);
         }
         exchange.setProperty("ListPayload",lists.get(request.getListName()));
-        exchange.setProperty("ListStatusMessage", "List Obtained Successfully");
+        exchange.setProperty("ListStatusMessage", "List obtained successfully");
     }
 }
