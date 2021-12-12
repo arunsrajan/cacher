@@ -21,6 +21,9 @@ public class AnAbstractRouteTest {
     @EndpointInject(MOCK_RESULT_LIST)
     protected MockEndpoint resultEndpointList;
 
+    @EndpointInject(MOCK_RESULT_MAP)
+    protected MockEndpoint resultEndpointMap;
+
     @Autowired
     protected CamelContext camelContext;
 
@@ -31,6 +34,7 @@ public class AnAbstractRouteTest {
     protected static final String MOCK_ERROR = "mock:error";
 
     protected static final String MOCK_RESULT_LIST = "mock:resultList";
+    protected static final String MOCK_RESULT_MAP = "mock:resultMap";
 
     protected static final String DIRECT_IN = "direct:in";
 

@@ -30,7 +30,7 @@ public class ACacheRouteTest extends AnAbstractRouteTest{
     @DirtiesContext
     public void testCacheCreate() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache");
+        cacheRequest.setCacheName("mycache19");
         cacheRequest.setExpiry(120);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -47,7 +47,7 @@ public class ACacheRouteTest extends AnAbstractRouteTest{
     @DirtiesContext
     public void testCacheRemove() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache1");
+        cacheRequest.setCacheName("mycache20");
         cacheRequest.setExpiry(120);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -63,7 +63,7 @@ public class ACacheRouteTest extends AnAbstractRouteTest{
         resultEndpoint.reset();
         resultEndpoint.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
-        exchange.getIn().setHeader(CACHENAME, "mycache1");
+        exchange.getIn().setHeader(CACHENAME, "mycache20");
         producer.send(CACHE_REMOVE_ROUTE, exchange);
         resultEndpoint.assertIsSatisfied();
         exchanges = resultEndpoint.getReceivedExchanges();
@@ -77,7 +77,7 @@ public class ACacheRouteTest extends AnAbstractRouteTest{
     @DirtiesContext
     public void testCacheAutoRemoveOnExpiry() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache2");
+        cacheRequest.setCacheName("mycache21");
         cacheRequest.setExpiry(2);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -94,7 +94,7 @@ public class ACacheRouteTest extends AnAbstractRouteTest{
         Thread.sleep(3000);
         errorEndpoint.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
-        exchange.getIn().setHeader(CACHENAME, "mycache2");
+        exchange.getIn().setHeader(CACHENAME, "mycache21");
         producer.send(CACHE_GET_ROUTE, exchange);
         errorEndpoint.assertIsSatisfied();
         exchanges = errorEndpoint.getReceivedExchanges();
@@ -107,7 +107,7 @@ public class ACacheRouteTest extends AnAbstractRouteTest{
     @DirtiesContext
     public void testCacheGet() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache3");
+        cacheRequest.setCacheName("mycache22");
         cacheRequest.setExpiry(0);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -123,7 +123,7 @@ public class ACacheRouteTest extends AnAbstractRouteTest{
         resultEndpoint.reset();
         resultEndpoint.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
-        exchange.getIn().setHeader(CACHENAME, "mycache3");
+        exchange.getIn().setHeader(CACHENAME, "mycache22");
         producer.send(CACHE_GET_ROUTE, exchange);
         resultEndpoint.assertIsSatisfied();
         exchanges = resultEndpoint.getReceivedExchanges();

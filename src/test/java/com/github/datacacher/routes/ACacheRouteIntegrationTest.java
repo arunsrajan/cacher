@@ -35,7 +35,7 @@ public class ACacheRouteIntegrationTest extends AnAbstractRouteTest{
     public void testCacheCreate() throws Exception {
         CacherClientBuilder.CacherClient
         cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
-        CacheResponse response = cacherClient.createCache("mycache", 0);
+        CacheResponse response = cacherClient.createCache("mycache15", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
     }
 
@@ -44,9 +44,9 @@ public class ACacheRouteIntegrationTest extends AnAbstractRouteTest{
     public void testCacheCreateGet() throws Exception {
         CacherClientBuilder.CacherClient
                 cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
-        CacheResponse response = cacherClient.createCache("mycache1", 0);
+        CacheResponse response = cacherClient.createCache("mycache16", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
-        response = cacherClient.getCache("mycache1");
+        response = cacherClient.getCache("mycache16");
         assertEquals("Cache obtained successfully", response.getHttpSuccessMessage());
     }
 
@@ -55,9 +55,9 @@ public class ACacheRouteIntegrationTest extends AnAbstractRouteTest{
     public void testCacheCreateDestroy() throws Exception {
         CacherClientBuilder.CacherClient
                 cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
-        CacheResponse response = cacherClient.createCache("mycache2", 0);
+        CacheResponse response = cacherClient.createCache("mycache17", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
-        response = cacherClient.destroyCache("mycache2");
+        response = cacherClient.destroyCache("mycache17");
         assertEquals("Cache removed successfully", response.getHttpSuccessMessage());
     }
 
@@ -66,9 +66,9 @@ public class ACacheRouteIntegrationTest extends AnAbstractRouteTest{
     public void testCacheCreateGetAudit() throws Exception {
         CacherClientBuilder.CacherClient
                 cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
-        CacheResponse response = cacherClient.createCache("mycache3", 0);
+        CacheResponse response = cacherClient.createCache("mycache18", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
-        CacheAuditResponse auditResponse = cacherClient.getCacheAudit("mycache3");
+        CacheAuditResponse auditResponse = cacherClient.getCacheAudit("mycache18");
         assertEquals("Audit obtained successfully", auditResponse.getHttpSuccessMessage());
         assertNotNull(auditResponse.getAudit());
     }

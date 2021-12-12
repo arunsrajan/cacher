@@ -62,7 +62,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
     @DirtiesContext
     public void testListCreate() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache7");
+        cacheRequest.setCacheName("mycache23");
         cacheRequest.setExpiry(0);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -77,7 +77,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         resultEndpoint.reset();
         exchanges.clear();
         ListRequest listRequest = new ListRequest();
-        listRequest.setCacheName("mycache7");
+        listRequest.setCacheName("mycache23");
         listRequest.setListName("mylist");
         resultEndpointList.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
@@ -88,7 +88,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         exchange = exchanges.get(0);
         ListResponse listResponse = exchange.getIn().getBody(ListResponse.class);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Created Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
 
     }
 
@@ -96,7 +96,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
     @DirtiesContext
     public void testListUpdate() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache4");
+        cacheRequest.setCacheName("mycache24");
         cacheRequest.setExpiry(0);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -111,7 +111,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         resultEndpoint.reset();
         exchanges.clear();
         ListRequest listRequest = new ListRequest();
-        listRequest.setCacheName("mycache4");
+        listRequest.setCacheName("mycache24");
         listRequest.setListName("mylist1");
         listRequest.setPayload(Arrays.asList(1,2,3,4,5));
         resultEndpointList.expectedMessageCount(1);
@@ -123,10 +123,10 @@ public class AListRouteTest extends AnAbstractRouteTest {
         exchange = exchanges.get(0);
         ListResponse listResponse = exchange.getIn().getBody(ListResponse.class);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Created Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
         resultEndpointList.reset();
         listRequest = new ListRequest();
-        listRequest.setCacheName("mycache4");
+        listRequest.setCacheName("mycache24");
         listRequest.setListName("mylist1");
         listRequest.setPayload(Arrays.asList(1,2,3,4,5));
         resultEndpointList.expectedMessageCount(1);
@@ -138,12 +138,12 @@ public class AListRouteTest extends AnAbstractRouteTest {
         exchange = exchanges.get(0);
         listResponse = exchange.getIn().getBody(ListResponse.class);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Updated Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List updated successfully", listResponse.getHttpSuccessMessage());
 
         resultEndpointList.reset();
         resultEndpointList.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
-        exchange.getIn().setHeader(CACHENAME, "mycache4");
+        exchange.getIn().setHeader(CACHENAME, "mycache24");
         exchange.getIn().setHeader(LISTNAME, "mylist1");
         producer.send(LIST_GET_ROUTE, exchange);
         resultEndpointList.assertIsSatisfied();
@@ -152,7 +152,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         listResponse = exchange.getIn().getBody(ListResponse.class);
         assertNotNull(listResponse);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Obtained Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List obtained successfully", listResponse.getHttpSuccessMessage());
         assertNotNull(listResponse.getPayload());
         assertEquals(5, listResponse.getPayload().size());
     }
@@ -162,7 +162,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
     @DirtiesContext
     public void testListAdd() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache1");
+        cacheRequest.setCacheName("mycache25");
         cacheRequest.setExpiry(0);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -177,7 +177,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         resultEndpoint.reset();
         exchanges.clear();
         ListRequest listRequest = new ListRequest();
-        listRequest.setCacheName("mycache1");
+        listRequest.setCacheName("mycache25");
         listRequest.setListName("mylist1");
         listRequest.setPayload(Arrays.asList(1,2,3,4,5));
         resultEndpointList.expectedMessageCount(1);
@@ -189,10 +189,10 @@ public class AListRouteTest extends AnAbstractRouteTest {
         exchange = exchanges.get(0);
         ListResponse listResponse = exchange.getIn().getBody(ListResponse.class);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Created Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
         resultEndpointList.reset();
         listRequest = new ListRequest();
-        listRequest.setCacheName("mycache1");
+        listRequest.setCacheName("mycache25");
         listRequest.setListName("mylist1");
         listRequest.setPayload(Arrays.asList(1,2,3,4,5));
         resultEndpointList.expectedMessageCount(1);
@@ -204,12 +204,12 @@ public class AListRouteTest extends AnAbstractRouteTest {
         exchange = exchanges.get(0);
         listResponse = exchange.getIn().getBody(ListResponse.class);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Added Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List added successfully", listResponse.getHttpSuccessMessage());
 
         resultEndpointList.reset();
         resultEndpointList.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
-        exchange.getIn().setHeader(CACHENAME, "mycache1");
+        exchange.getIn().setHeader(CACHENAME, "mycache25");
         exchange.getIn().setHeader(LISTNAME, "mylist1");
         producer.send(LIST_GET_ROUTE, exchange);
         resultEndpointList.assertIsSatisfied();
@@ -218,7 +218,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         listResponse = exchange.getIn().getBody(ListResponse.class);
         assertNotNull(listResponse);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Obtained Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List obtained successfully", listResponse.getHttpSuccessMessage());
         assertNotNull(listResponse.getPayload());
         assertEquals(10, listResponse.getPayload().size());
     }
@@ -227,7 +227,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
     @DirtiesContext
     public void testListGet() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache8");
+        cacheRequest.setCacheName("mycache26");
         cacheRequest.setExpiry(0);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -242,7 +242,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         resultEndpoint.reset();
         exchanges.clear();
         ListRequest listRequest = new ListRequest();
-        listRequest.setCacheName("mycache8");
+        listRequest.setCacheName("mycache26");
         listRequest.setListName("mylist1");
         listRequest.setPayload(Arrays.asList(1,2,3,4,5));
         resultEndpointList.expectedMessageCount(1);
@@ -254,12 +254,12 @@ public class AListRouteTest extends AnAbstractRouteTest {
         exchange = exchanges.get(0);
         ListResponse listResponse = exchange.getIn().getBody(ListResponse.class);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Created Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
         resultEndpointList.reset();
 
         resultEndpointList.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
-        exchange.getIn().setHeader(CACHENAME, "mycache8");
+        exchange.getIn().setHeader(CACHENAME, "mycache26");
         exchange.getIn().setHeader(LISTNAME, "mylist1");
         producer.send(LIST_GET_ROUTE, exchange);
         resultEndpointList.assertIsSatisfied();
@@ -268,7 +268,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         listResponse = exchange.getIn().getBody(ListResponse.class);
         assertNotNull(listResponse);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Obtained Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List obtained successfully", listResponse.getHttpSuccessMessage());
         assertNotNull(listResponse.getPayload());
         assertEquals(5, listResponse.getPayload().size());
     }
@@ -277,7 +277,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
     @DirtiesContext
     public void testListRemove() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache5");
+        cacheRequest.setCacheName("mycache27");
         cacheRequest.setExpiry(0);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -292,7 +292,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         resultEndpoint.reset();
         exchanges.clear();
         ListRequest listRequest = new ListRequest();
-        listRequest.setCacheName("mycache5");
+        listRequest.setCacheName("mycache27");
         listRequest.setListName("mylist1");
         listRequest.setPayload(Arrays.asList(1,2,3,4,5));
         resultEndpointList.expectedMessageCount(1);
@@ -304,13 +304,13 @@ public class AListRouteTest extends AnAbstractRouteTest {
         exchange = exchanges.get(0);
         ListResponse listResponse = exchange.getIn().getBody(ListResponse.class);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Created Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
         resultEndpointList.reset();
 
         resultEndpointList.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
         listRequest = new ListRequest();
-        listRequest.setCacheName("mycache5");
+        listRequest.setCacheName("mycache27");
         listRequest.setListName("mylist1");
         exchange.getIn().setBody(listRequest);
         producer.send(LIST_REMOVE_ROUTE, exchange);
@@ -320,14 +320,14 @@ public class AListRouteTest extends AnAbstractRouteTest {
         listResponse = exchange.getIn().getBody(ListResponse.class);
         assertNotNull(listResponse);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Removed Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List removed successfully", listResponse.getHttpSuccessMessage());
     }
 
     @Test
     @DirtiesContext
     public void testListRemoveValues() throws Exception {
         CacheRequest cacheRequest  =new CacheRequest();
-        cacheRequest.setCacheName("mycache6");
+        cacheRequest.setCacheName("mycache28");
         cacheRequest.setExpiry(0);
         resultEndpoint.expectedMessageCount(1);
         Exchange exchange = new DefaultExchange(camelContext);
@@ -342,7 +342,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         resultEndpoint.reset();
         exchanges.clear();
         ListRequest listRequest = new ListRequest();
-        listRequest.setCacheName("mycache6");
+        listRequest.setCacheName("mycache28");
         listRequest.setListName("mylist1");
         listRequest.setPayload(Arrays.asList(1,2,3,4,5));
         resultEndpointList.expectedMessageCount(1);
@@ -354,13 +354,13 @@ public class AListRouteTest extends AnAbstractRouteTest {
         exchange = exchanges.get(0);
         ListResponse listResponse = exchange.getIn().getBody(ListResponse.class);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Created Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
         resultEndpointList.reset();
 
         resultEndpointList.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
         listRequest = new ListRequest();
-        listRequest.setCacheName("mycache6");
+        listRequest.setCacheName("mycache28");
         listRequest.setListName("mylist1");
         listRequest.setPayload(Arrays.asList(1,2));
         exchange.getIn().setBody(listRequest);
@@ -371,12 +371,12 @@ public class AListRouteTest extends AnAbstractRouteTest {
         listResponse = exchange.getIn().getBody(ListResponse.class);
         assertNotNull(listResponse);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Values Removed Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List values removed successfully", listResponse.getHttpSuccessMessage());
 
         resultEndpointList.reset();
         resultEndpointList.expectedMessageCount(1);
         exchange = new DefaultExchange(camelContext);
-        exchange.getIn().setHeader(CACHENAME, "mycache6");
+        exchange.getIn().setHeader(CACHENAME, "mycache28");
         exchange.getIn().setHeader(LISTNAME, "mylist1");
         producer.send(LIST_GET_ROUTE, exchange);
         resultEndpointList.assertIsSatisfied();
@@ -385,7 +385,7 @@ public class AListRouteTest extends AnAbstractRouteTest {
         listResponse = exchange.getIn().getBody(ListResponse.class);
         assertNotNull(listResponse);
         assertEquals("success", listResponse.getHttpStatus());
-        assertEquals("List Obtained Successfully", listResponse.getHttpSuccessMessage());
+        assertEquals("List obtained successfully", listResponse.getHttpSuccessMessage());
         assertNotNull(listResponse.getPayload());
         assertEquals(3, listResponse.getPayload().size());
     }
