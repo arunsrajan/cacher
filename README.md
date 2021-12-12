@@ -16,3 +16,10 @@ The following guides illustrate how to use some features concretely:
 
 * [Handling Form Submission](https://spring.io/guides/gs/handling-form-submission/)
 
+### Building the fat jar
+--------------------
+mvn clean package -Dmaven.test.skip=true
+
+### Building the client jar
+---------------------------
+mvn clean jar:jar install -Dmaven.test.skip=true -Dspring-boot.repackage.skip=true
