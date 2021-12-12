@@ -13,4 +13,5 @@ public class MapConstants {
     public static final String NOMAPAVAILABLE = "Map Not Available";
     public static final String NULLKEY = "Null Key not allowable";
     public static final String NOKEYAVAILABLE = "No key available in map";
+    public static final String KEY = "key";
 }

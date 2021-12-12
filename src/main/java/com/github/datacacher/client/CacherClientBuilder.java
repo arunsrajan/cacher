@@ -2,6 +2,7 @@ package com.github.datacacher.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.datacacher.constants.ListConstants;
+import com.github.datacacher.constants.MapConstants;
 import com.github.datacacher.model.*;
 import org.apache.camel.component.http.HttpDeleteWithBodyMethod;
 import org.apache.http.HttpEntity;
@@ -274,6 +275,107 @@ public class CacherClientBuilder {
                 deleteListHttp.setHeader(ACCEPT, APPLICATION_JSON);
                 String response = httpclient.execute(deleteListHttp, responseHandler);
                 return mapper.readValue(response, ListResponse.class);
+            } catch (IOException e) {
+
+            }
+            return null;
+        }
+
+        public MapResponse createMap(String cacheName, String mapName, String key, Object value) {
+            try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+                HttpPost createMapHttp = new HttpPost();
+                createMapHttp.setURI(new URI(hostPort + CacherConstants.BASEURL + FORWARDSLASH + MapConstants.MAP));
+                createMapHttp.setHeader(CONTENTTYPE, APPLICATION_JSON);
+                createMapHttp.setHeader(ACCEPT, APPLICATION_JSON);
+                MapRequest mapRequest = new MapRequest();
+                mapRequest.setCacheName(cacheName);
+                mapRequest.setMapName(mapName);
+                mapRequest.setKeyName(key);
+                mapRequest.setValues(value);
+                HttpEntity entity = new StringEntity(mapper.writeValueAsString(mapRequest));
+                createMapHttp.setEntity(entity);
+                String response = httpclient.execute(createMapHttp, responseHandler);
+                return mapper.readValue(response, MapResponse.class);
+            } catch (IOException e) {
+
+            } catch (URISyntaxException e) {
+
+            }
+            return null;
+        }
+        public MapResponse getMap(String cacheName, String mapName) {
+            try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+                HttpGet getMapHttp = new HttpGet();
+                getMapHttp.setURI(new URI(hostPort + CacherConstants.BASEURL + FORWARDSLASH + MapConstants.MAP
+                        + FORWARDSLASH + cacheName + FORWARDSLASH + mapName));
+                getMapHttp.setHeader(CONTENTTYPE, APPLICATION_JSON);
+                getMapHttp.setHeader(ACCEPT, APPLICATION_JSON);
+                String response = httpclient.execute(getMapHttp, responseHandler);
+                return mapper.readValue(response, MapResponse.class);
+            } catch (IOException e) {
+
+            } catch (URISyntaxException e) {
+
+            }
+            return null;
+        }
+        public MapResponse putMap(String cacheName, String mapName, String key, Object value) {
+            try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+                HttpPut putMapHttp = new HttpPut();
+                putMapHttp.setURI(new URI(hostPort + CacherConstants.BASEURL + FORWARDSLASH + MapConstants.MAP));
+                putMapHttp.setHeader(CONTENTTYPE, APPLICATION_JSON);
+                putMapHttp.setHeader(ACCEPT, APPLICATION_JSON);
+                MapRequest mapRequest = new MapRequest();
+                mapRequest.setCacheName(cacheName);
+                mapRequest.setMapName(mapName);
+                mapRequest.setKeyName(key);
+                mapRequest.setValues(value);
+                HttpEntity entity = new StringEntity(mapper.writeValueAsString(mapRequest));
+                putMapHttp.setEntity(entity);
+                String response = httpclient.execute(putMapHttp, responseHandler);
+                return mapper.readValue(response, MapResponse.class);
+            } catch (IOException e) {
+
+            } catch (URISyntaxException e) {
+
+            }
+            return null;
+        }
+
+        public MapResponse destroyMap(String cacheName, String mapName) {
+            try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+                MapRequest mapRequest = new MapRequest();
+                mapRequest.setCacheName(cacheName);
+                mapRequest.setMapName(mapName);
+                HttpEntity entity = new StringEntity(mapper.writeValueAsString(mapRequest));
+                HttpDeleteWithBodyMethod destroyMapHttp = new HttpDeleteWithBodyMethod(
+                        hostPort + CacherConstants.BASEURL + FORWARDSLASH + MapConstants.MAP,
+                        entity);
+                destroyMapHttp.setHeader(CONTENTTYPE, APPLICATION_JSON);
+                destroyMapHttp.setHeader(ACCEPT, APPLICATION_JSON);
+                String response = httpclient.execute(destroyMapHttp, responseHandler);
+                return mapper.readValue(response, MapResponse.class);
+            } catch (IOException e) {
+
+            }
+            return null;
+        }
+
+        public MapResponse destroyMapKey(String cacheName, String mapName,  String key) {
+            try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+                MapRequest mapRequest = new MapRequest();
+                mapRequest.setCacheName(cacheName);
+                mapRequest.setMapName(mapName);
+                mapRequest.setKeyName(key);
+                HttpEntity entity = new StringEntity(mapper.writeValueAsString(mapRequest));
+                HttpDeleteWithBodyMethod destroyMapHttp = new HttpDeleteWithBodyMethod(
+                        hostPort + CacherConstants.BASEURL + FORWARDSLASH + MapConstants.MAP
+                                + FORWARDSLASH + MapConstants.KEY,
+                        entity);
+                destroyMapHttp.setHeader(CONTENTTYPE, APPLICATION_JSON);
+                destroyMapHttp.setHeader(ACCEPT, APPLICATION_JSON);
+                String response = httpclient.execute(destroyMapHttp, responseHandler);
+                return mapper.readValue(response, MapResponse.class);
             } catch (IOException e) {
 
             }

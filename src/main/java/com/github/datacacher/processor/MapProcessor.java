@@ -50,7 +50,7 @@ public class MapProcessor implements Processor {
         if(!Objects.isNull(request.getKey()) && !Objects.isNull(request.getValues())){
             maps.get(request.getMapName()).put(request.getKey(), request.getValues());
         }
-        exchange.setProperty("MapStatusMessage", "Map Created Successfully");
+        exchange.setProperty("MapStatusMessage", "Map created successfully");
     }
 
     public void processResponse(Exchange exchange) throws Exception {
@@ -84,7 +84,7 @@ public class MapProcessor implements Processor {
             throw new MapException(MAPTOBECREATED);
         }
         exchange.setProperty("MapPayload",maps.get(request.getMapName()));
-        exchange.setProperty("MapStatusMessage", "Map Obtained Successfully");
+        exchange.setProperty("MapStatusMessage", "Map obtained successfully");
     }
 
     public synchronized void putMap(Exchange exchange) throws Exception {
@@ -99,7 +99,7 @@ public class MapProcessor implements Processor {
             throw new MapException(NULLKEYNOTALLOWABLE);
         }
         maps.get(request.getMapName()).put(request.getKey(), request.getValues());
-        exchange.setProperty("MapStatusMessage", "Map Updated Successfully");
+        exchange.setProperty("MapStatusMessage", "Map updated successfully");
     }
 
     public synchronized void removeMap(Exchange exchange) throws Exception {
@@ -111,7 +111,7 @@ public class MapProcessor implements Processor {
             throw new MapException(NOMAPAVAILABLE);
         }
         maps.remove(request.getMapName());
-        exchange.setProperty("MapStatusMessage", "Map Removed Successfully");
+        exchange.setProperty("MapStatusMessage", "Map removed successfully");
     }
 
     public synchronized void removeKeyInMap(Exchange exchange) throws Exception {
