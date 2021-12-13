@@ -157,6 +157,23 @@ public class CacherClientBuilder {
             return null;
         }
 
+        public CacheResponse getCacheAvailability(String cacheName) {
+            try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+                HttpGet getCacheAvailabilityHttp = new HttpGet();
+                getCacheAvailabilityHttp.setURI(new URI(hostPort + CacherConstants.BASEURL + CacherConstants.CACHE
+                        + FORWARDSLASH + cacheName + FORWARDSLASH + CacherConstants.AVAILABLE));
+                getCacheAvailabilityHttp.setHeader(CONTENTTYPE, APPLICATION_JSON);
+                getCacheAvailabilityHttp.setHeader(ACCEPT, APPLICATION_JSON);
+                String response = httpclient.execute(getCacheAvailabilityHttp, responseHandler);
+                return mapper.readValue(response, CacheResponse.class);
+            } catch (IOException e) {
+
+            } catch (URISyntaxException e) {
+
+            }
+            return null;
+        }
+
         public ListResponse createList(String cacheName, String listName, List payload) {
             try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
                 HttpPost createListHttp = new HttpPost();

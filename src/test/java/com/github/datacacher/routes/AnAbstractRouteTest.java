@@ -60,6 +60,10 @@ public class AnAbstractRouteTest {
             builder.weaveAddLast()
                     .to(resultEndpoint);
         });
+        AdviceWithRouteBuilder.adviceWith(camelContext,CACHE_GET_AVAILABLE_ID,(builder)->{
+            builder.weaveAddLast()
+                    .to(resultEndpoint);
+        });
         resultEndpoint.reset();
     }
 }

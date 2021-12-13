@@ -18,8 +18,8 @@ import java.util.List;
 
 import static com.github.datacacher.constants.CacheConstants.*;
 import static com.github.datacacher.constants.RouteConstants.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(CamelSpringBootRunner.class)
 @SpringBootTest
@@ -131,5 +131,59 @@ public class ACacheRouteTest extends AnAbstractRouteTest{
         response = exchange.getIn().getBody(CacheResponse.class);
         assertEquals("success", response.getHttpStatus());
         assertEquals(CACHEOBTAINEDSUCCESSFULLY, response.getHttpSuccessMessage());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testCacheGetAvailability() throws Exception {
+        CacheRequest cacheRequest  =new CacheRequest();
+        cacheRequest.setCacheName("mycacheavailable");
+        cacheRequest.setExpiry(0);
+        resultEndpoint.expectedMessageCount(1);
+        Exchange exchange = new DefaultExchange(camelContext);
+        exchange.getIn().setBody(cacheRequest);
+        producer.send(CACHE_CREATE_ROUTE, exchange);
+        resultEndpoint.assertIsSatisfied();
+        List<Exchange> exchanges = resultEndpoint.getReceivedExchanges();
+        exchange = exchanges.get(0);
+        CacheResponse response = exchange.getIn().getBody(CacheResponse.class);
+        assertNotNull(response);
+        assertEquals("success", response.getHttpStatus());
+        assertEquals(CACHECREATEDSUCCESSFULLY, response.getHttpSuccessMessage());
+        resultEndpoint.reset();
+        resultEndpoint.expectedMessageCount(1);
+        exchange = new DefaultExchange(camelContext);
+        exchange.getIn().setHeader(CACHENAME, "mycacheavailable");
+        producer.send(CACHE_GET_AVAILABLE_ROUTE, exchange);
+        resultEndpoint.assertIsSatisfied();
+        exchanges = resultEndpoint.getReceivedExchanges();
+        exchange = exchanges.get(0);
+        response = exchange.getIn().getBody(CacheResponse.class);
+        assertEquals("success", response.getHttpStatus());
+        assertEquals(CACHEISAVAILABLE, response.getHttpSuccessMessage());
+        assertTrue((Boolean)response.getPayload());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testCacheGetUnAvailable() throws Exception {
+        CacheRequest cacheRequest  =new CacheRequest();
+        cacheRequest.setCacheName("mycacheunavailable");
+        cacheRequest.setExpiry(0);
+        resultEndpoint.expectedMessageCount(1);
+        Exchange exchange = new DefaultExchange(camelContext);
+        exchange.getIn().setBody(cacheRequest);
+        resultEndpoint.reset();
+        resultEndpoint.expectedMessageCount(1);
+        exchange = new DefaultExchange(camelContext);
+        exchange.getIn().setHeader(CACHENAME, "mycacheunavailable");
+        producer.send(CACHE_GET_AVAILABLE_ROUTE, exchange);
+        resultEndpoint.assertIsSatisfied();
+        List<Exchange> exchanges = resultEndpoint.getReceivedExchanges();
+        exchange = exchanges.get(0);
+        CacheResponse response = exchange.getIn().getBody(CacheResponse.class);
+        assertEquals("success", response.getHttpStatus());
+        assertEquals(CACHEISUNAVAILABLE, response.getHttpSuccessMessage());
+        assertFalse((Boolean)response.getPayload());
     }
 }

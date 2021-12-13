@@ -22,8 +22,8 @@ import java.util.List;
 
 import static com.github.datacacher.constants.CacheConstants.*;
 import static com.github.datacacher.constants.RouteConstants.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(CamelSpringBootRunner.class)
 @SpringBootTest(classes = {Cacher.class})
@@ -71,6 +71,28 @@ public class ACacheRouteIntegrationTest extends AnAbstractRouteTest{
         CacheAuditResponse auditResponse = cacherClient.getCacheAudit("mycache18");
         assertEquals("Audit obtained successfully", auditResponse.getHttpSuccessMessage());
         assertNotNull(auditResponse.getAudit());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testCacheGetAvailability() throws Exception {
+        CacherClientBuilder.CacherClient
+                cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
+        CacheResponse response = cacherClient.createCache("mycacheintgavailable", 0);
+        assertEquals("Cache created successfully", response.getHttpSuccessMessage());
+        response = cacherClient.getCacheAvailability("mycacheintgavailable");
+        assertEquals(CACHEISAVAILABLE, response.getHttpSuccessMessage());
+        assertTrue((Boolean) response.getPayload());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testCacheGetUnAvailable() throws Exception {
+        CacherClientBuilder.CacherClient
+                cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
+        CacheResponse auditResponse = cacherClient.getCacheAvailability("mycacheintgunavailable");
+        assertEquals(CACHEISUNAVAILABLE, auditResponse.getHttpSuccessMessage());
+        assertFalse((Boolean) auditResponse.getPayload());
     }
 }
 

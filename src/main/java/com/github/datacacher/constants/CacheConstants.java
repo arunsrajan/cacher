@@ -4,6 +4,8 @@ public class CacheConstants {
     public static enum CACHECOMMANDS{CREATE,DELETE};
     public static final String CACHEINITIALIZEXCEPTION = "Cache manager is not initialized";
     public static final String CACHEALREADYCREATED = "Cache already available, Cannot create existing cache";
+    public static final String CACHEISAVAILABLE = "Cache is available";
+    public static final String CACHEISUNAVAILABLE = "Cache is not available";
     public static final String CACHENOTAVAILABLE = "Cache not available, either cache expired or not created";
     public static final String CACHECREATEDSUCCESSFULLY = "Cache created successfully";
     public static final String CACHEREMOVEDSUCCESSFULLY = "Cache removed successfully";

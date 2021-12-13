@@ -61,5 +61,14 @@ public class CacheRoute extends RouteBuilder {
                 .log("Get Audit from Cache ${header.cacheName}...")
                 .bean("cacheProcessor", "getAuditCache")
                 .bean("cacheProcessor", "processAuditResponse");
+
+        from(CACHE_GET_AVAILABLE_ROUTE).routeId(CACHE_GET_AVAILABLE_ID)
+                .onCompletion()
+                .log("Completed Cache Availability")
+                .end()
+                .bean("cacheValidator", "validate")
+                .log("Get Cache Availability for cache ${header.cacheName}...")
+                .bean("cacheProcessor", "getCacheAvailability")
+                .bean("cacheProcessor", "processResponse");
     }
 }

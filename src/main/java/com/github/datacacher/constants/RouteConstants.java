@@ -7,6 +7,7 @@ public class RouteConstants {
     public static final String CACHE_GET_ROUTE = "direct:cacheGet";
     public static final String CACHE_AUDIT_ROUTE = "direct:audit";
     public static final String CACHE_AUDIT_GET_ROUTE = "direct:auditGet";
+    public static final String CACHE_GET_AVAILABLE_ROUTE = "direct:getCacheAvailability";
 
     //List Routes
     public static final String LIST_CREATE_ROUTE = "direct:listCreate";
@@ -29,6 +30,7 @@ public class RouteConstants {
     public static final String GET_CACHE_ID = "GET_CACHE_ID";
     public static final String CACHE_AUDIT_ID = "GET_AUDIT_ID";
     public static final String CACHE_AUDIT_GET_ID = "CACHE_AUDIT_GET_ID";
+    public static final String CACHE_GET_AVAILABLE_ID = "CACHE_GET_AVAILABLE_ID";
 
     //List route Ids
     public static final String CREATE_LIST_ID = "CREATE_LIST_ID";

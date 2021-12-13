@@ -67,6 +67,7 @@ public class CacheProcessor implements Processor {
             throw new CacheException(CACHENOTAVAILABLE);
         }
     }
+
     public void getAuditCache(Exchange exchange) throws Exception {
         String cacheName = exchange.getIn().getHeader(CACHENAME, String.class);
         Cache cache = cacheManager.getCache(cacheName);
@@ -77,6 +78,19 @@ public class CacheProcessor implements Processor {
             throw new CacheException(CACHENOTAVAILABLE);
         }
     }
+
+    public void getCacheAvailability(Exchange exchange) throws Exception {
+        String cacheName = exchange.getIn().getHeader(CACHENAME, String.class);
+        try {
+            Cache cache = cacheManager.getCache(cacheName);
+            exchange.setProperty("CacheStatusMessage", CACHEISAVAILABLE);
+            exchange.setProperty("CachePayload", true);
+        } catch (Exception ex) {
+            exchange.setProperty("CacheStatusMessage", CACHEISUNAVAILABLE);
+            exchange.setProperty("CachePayload", false);
+        }
+    }
+
     public void auditCache(Exchange exchange) throws Exception {
         String cacheName = exchange.getProperty(CACHENAME, String.class);
         Cache cache = cacheManager.getCache(cacheName);

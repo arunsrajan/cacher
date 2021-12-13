@@ -40,6 +40,8 @@ public class CacherApi extends RouteBuilder {
                 .outType(CacheResponse.class).to(CACHE_GET_ROUTE)
                 .get("/{" + CACHENAME + "}/audit")
                 .outType(CacheAuditResponse.class).to(CACHE_AUDIT_GET_ROUTE)
+                .get("/{" + CACHENAME + "}/availability")
+                .outType(CacheAuditResponse.class).to(CACHE_GET_AVAILABLE_ROUTE)
                 .delete("/{" + CACHENAME + "}")
                 .outType(CacheResponse.class).to(CACHE_REMOVE_ROUTE);
 

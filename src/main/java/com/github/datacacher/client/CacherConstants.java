@@ -8,4 +8,5 @@ public class CacherConstants {
     public static final String ACCEPT = "Accept";
     public static final String FORWARDSLASH = "/";
     public static final String AUDIT = "/audit";
+    public static final String AVAILABLE = "/availability";
 }
