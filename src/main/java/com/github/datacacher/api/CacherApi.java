@@ -47,6 +47,7 @@ public class CacherApi extends RouteBuilder {
 
         rest("/list").produces(MediaType.APPLICATION_JSON).consumes(MediaType.APPLICATION_JSON)
                 .get("/{" + CACHENAME + "}"+"/{" + LISTNAME + "}").type(ListRequest.class).outType(ListResponse.class).to(LIST_GET_ROUTE)
+                .get("/{" + CACHENAME + "}"+"/{" + LISTNAME + "}/sortget").type(ListRequest.class).outType(ListResponse.class).to(LIST_SORT_ROUTE)
                 .post().type(ListRequest.class).outType(ListResponse.class).to(LIST_CREATE_ROUTE)
                 .put("/add").type(ListRequest.class).outType(ListResponse.class).to(LIST_ADD_ROUTE)
                 .put().type(ListRequest.class).outType(ListResponse.class).to(LIST_UPDATE_ROUTE)

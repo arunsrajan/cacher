@@ -21,8 +21,7 @@ import static com.github.datacacher.constants.CacheConstants.CACHECREATEDSUCCESS
 import static com.github.datacacher.constants.CacheConstants.CACHENAME;
 import static com.github.datacacher.constants.ListConstants.LISTNAME;
 import static com.github.datacacher.constants.RouteConstants.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(CamelSpringBootRunner.class)
 @SpringBootTest
@@ -52,6 +51,10 @@ public class AListRouteTest extends AnAbstractRouteTest {
                     .to(resultEndpointList);
         });
         AdviceWithRouteBuilder.adviceWith(camelContext,UPDATE_LIST_ID,(builder)->{
+            builder.weaveAddLast()
+                    .to(resultEndpointList);
+        });
+        AdviceWithRouteBuilder.adviceWith(camelContext,SORT_LIST_VALUES_ID,(builder)->{
             builder.weaveAddLast()
                     .to(resultEndpointList);
         });
@@ -271,6 +274,58 @@ public class AListRouteTest extends AnAbstractRouteTest {
         assertEquals("List obtained successfully", listResponse.getHttpSuccessMessage());
         assertNotNull(listResponse.getPayload());
         assertEquals(5, listResponse.getPayload().size());
+    }
+
+
+    @Test
+    @DirtiesContext
+    public void testListSortAndGet() throws Exception {
+        CacheRequest cacheRequest  =new CacheRequest();
+        cacheRequest.setCacheName("mycachesort");
+        cacheRequest.setExpiry(0);
+        resultEndpoint.expectedMessageCount(1);
+        Exchange exchange = new DefaultExchange(camelContext);
+        exchange.getIn().setBody(cacheRequest);
+        producer.send(CACHE_CREATE_ROUTE, exchange);
+        resultEndpoint.assertIsSatisfied();
+        List<Exchange> exchanges = resultEndpoint.getExchanges();
+        exchange = exchanges.get(0);
+        CacheResponse response = exchange.getIn().getBody(CacheResponse.class);
+        assertEquals("success", response.getHttpStatus());
+        assertEquals(CACHECREATEDSUCCESSFULLY, response.getHttpSuccessMessage());
+        resultEndpoint.reset();
+        exchanges.clear();
+        ListRequest listRequest = new ListRequest();
+        listRequest.setCacheName("mycachesort");
+        listRequest.setListName("mylist1");
+        listRequest.setPayload(Arrays.asList("4","5","1","2","3"));
+        resultEndpointList.expectedMessageCount(1);
+        exchange = new DefaultExchange(camelContext);
+        exchange.getIn().setBody(listRequest);
+        producer.send(LIST_CREATE_ROUTE, exchange);
+        resultEndpointList.assertIsSatisfied();
+        exchanges = resultEndpointList.getExchanges();
+        exchange = exchanges.get(0);
+        ListResponse listResponse = exchange.getIn().getBody(ListResponse.class);
+        assertEquals("success", listResponse.getHttpStatus());
+        assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
+        resultEndpointList.reset();
+
+        resultEndpointList.expectedMessageCount(1);
+        exchange = new DefaultExchange(camelContext);
+        exchange.getIn().setHeader(CACHENAME, "mycachesort");
+        exchange.getIn().setHeader(LISTNAME, "mylist1");
+        producer.send(LIST_SORT_ROUTE, exchange);
+        resultEndpointList.assertIsSatisfied();
+        exchanges = resultEndpointList.getExchanges();
+        exchange = exchanges.get(0);
+        listResponse = exchange.getIn().getBody(ListResponse.class);
+        assertNotNull(listResponse);
+        assertEquals("success", listResponse.getHttpStatus());
+        assertEquals("List sorted successfully", listResponse.getHttpSuccessMessage());
+        assertNotNull(listResponse.getPayload());
+        assertEquals(5, listResponse.getPayload().size());
+        assertTrue(TestUtils.isSorted((List)listResponse.getPayload(),listResponse.getPayload().size()));
     }
 
     @Test

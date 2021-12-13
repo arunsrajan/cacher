@@ -11,13 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 @RunWith(CamelSpringBootRunner.class)
 @SpringBootTest(classes = {Cacher.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class AListRouteIntegrationTest extends AnAbstractRouteTest{
+public class AListRouteIntegrationTest extends AnAbstractRouteTest {
 
     @Test
     @DirtiesContext
@@ -26,7 +27,7 @@ public class AListRouteIntegrationTest extends AnAbstractRouteTest{
                 cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
         CacheResponse response = cacherClient.createCache("mycache4", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
-        ListResponse listResponse = cacherClient.createList("mycache4", "mylist1", Arrays.asList("1","2","3","4","5"));
+        ListResponse listResponse = cacherClient.createList("mycache4", "mylist1", Arrays.asList("1", "2", "3", "4", "5"));
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
     }
@@ -38,7 +39,7 @@ public class AListRouteIntegrationTest extends AnAbstractRouteTest{
                 cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
         CacheResponse response = cacherClient.createCache("mycache5", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
-        ListResponse listResponse = cacherClient.createList("mycache5", "mylist1", Arrays.asList("1","2","3","4","5"));
+        ListResponse listResponse = cacherClient.createList("mycache5", "mylist1", Arrays.asList("1", "2", "3", "4", "5"));
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
         listResponse = cacherClient.getList("mycache5", "mylist1");
@@ -54,11 +55,11 @@ public class AListRouteIntegrationTest extends AnAbstractRouteTest{
                 cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
         CacheResponse response = cacherClient.createCache("mycache6", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
-        ListResponse listResponse = cacherClient.createList("mycache6", "mylist1", Arrays.asList("1","2","3","4","5"));
+        ListResponse listResponse = cacherClient.createList("mycache6", "mylist1", Arrays.asList("1", "2", "3", "4", "5"));
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
 
-        listResponse = cacherClient.updateList("mycache6", "mylist1", Arrays.asList("1","2","3"));
+        listResponse = cacherClient.updateList("mycache6", "mylist1", Arrays.asList("1", "2", "3"));
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List updated successfully", listResponse.getHttpSuccessMessage());
 
@@ -76,11 +77,11 @@ public class AListRouteIntegrationTest extends AnAbstractRouteTest{
                 cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
         CacheResponse response = cacherClient.createCache("mycache7", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
-        ListResponse listResponse = cacherClient.createList("mycache7", "mylist1", Arrays.asList("1","2","3","4","5"));
+        ListResponse listResponse = cacherClient.createList("mycache7", "mylist1", Arrays.asList("1", "2", "3", "4", "5"));
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
 
-        listResponse = cacherClient.addToList("mycache7", "mylist1", Arrays.asList("1","2","3"));
+        listResponse = cacherClient.addToList("mycache7", "mylist1", Arrays.asList("1", "2", "3"));
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List added successfully", listResponse.getHttpSuccessMessage());
 
@@ -97,7 +98,7 @@ public class AListRouteIntegrationTest extends AnAbstractRouteTest{
                 cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
         CacheResponse response = cacherClient.createCache("mycache8", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
-        ListResponse listResponse = cacherClient.createList("mycache8", "mylist1", Arrays.asList("1","2","3","4","5"));
+        ListResponse listResponse = cacherClient.createList("mycache8", "mylist1", Arrays.asList("1", "2", "3", "4", "5"));
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
 
@@ -113,11 +114,11 @@ public class AListRouteIntegrationTest extends AnAbstractRouteTest{
                 cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
         CacheResponse response = cacherClient.createCache("mycache9", 0);
         assertEquals("Cache created successfully", response.getHttpSuccessMessage());
-        ListResponse listResponse = cacherClient.createList("mycache9", "mylist1", Arrays.asList("1","2","3","4","5"));
+        ListResponse listResponse = cacherClient.createList("mycache9", "mylist1", Arrays.asList("1", "2", "3", "4", "5"));
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
 
-        listResponse = cacherClient.removeListValues("mycache9", "mylist1", Arrays.asList("1","2","3"));
+        listResponse = cacherClient.removeListValues("mycache9", "mylist1", Arrays.asList("1", "2", "3"));
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List values removed successfully", listResponse.getHttpSuccessMessage());
 
@@ -125,5 +126,22 @@ public class AListRouteIntegrationTest extends AnAbstractRouteTest{
         assertEquals("success", listResponse.getHttpStatus());
         assertEquals("List obtained successfully", listResponse.getHttpSuccessMessage());
         assertEquals(2, listResponse.getPayload().size());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testListCreatesortAndGetList() throws Exception {
+        CacherClientBuilder.CacherClient
+                cacherClient = CacherClientBuilder.builder().setHost("localhost").setPort(8081).build();
+        CacheResponse response = cacherClient.createCache("mycacheintgtestsort", 0);
+        assertEquals("Cache created successfully", response.getHttpSuccessMessage());
+        ListResponse listResponse = cacherClient.createList("mycacheintgtestsort", "mylist1", Arrays.asList("4", "5", "1", "2", "3"));
+        assertEquals("success", listResponse.getHttpStatus());
+        assertEquals("List created successfully", listResponse.getHttpSuccessMessage());
+        listResponse = cacherClient.sortAndGetList("mycacheintgtestsort", "mylist1");
+        assertEquals("success", listResponse.getHttpStatus());
+        assertEquals("List sorted successfully", listResponse.getHttpSuccessMessage());
+        assertNotNull(listResponse.getPayload());
+        assertTrue(TestUtils.isSorted((List)listResponse.getPayload(), listResponse.getPayload().size()));
     }
 }

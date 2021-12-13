@@ -25,6 +25,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import static com.github.datacacher.client.CacherConstants.*;
+import static com.github.datacacher.constants.ListConstants.SORT;
 import static com.github.datacacher.constants.ListConstants.VALUES;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -291,6 +292,21 @@ public class CacherClientBuilder {
                 deleteListHttp.setHeader(CONTENTTYPE, APPLICATION_JSON);
                 deleteListHttp.setHeader(ACCEPT, APPLICATION_JSON);
                 String response = httpclient.execute(deleteListHttp, responseHandler);
+                return mapper.readValue(response, ListResponse.class);
+            } catch (IOException e) {
+
+            }
+            return null;
+        }
+
+        public ListResponse sortAndGetList(String cacheName, String listName) {
+            try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+                HttpGet sortAndGetListHttp = new HttpGet(
+                        hostPort + CacherConstants.BASEURL + FORWARDSLASH + ListConstants.LIST
+                                + FORWARDSLASH + cacheName + FORWARDSLASH + listName + SORT);
+                sortAndGetListHttp.setHeader(CONTENTTYPE, APPLICATION_JSON);
+                sortAndGetListHttp.setHeader(ACCEPT, APPLICATION_JSON);
+                String response = httpclient.execute(sortAndGetListHttp, responseHandler);
                 return mapper.readValue(response, ListResponse.class);
             } catch (IOException e) {
 

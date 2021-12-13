@@ -16,4 +16,5 @@ public class ListConstants {
     public static final String LISTNAME = "listName";
     public static final String ADD = "/add";
     public static final String VALUES = "/values";
+    public static final String SORT = "/sortget";
 }

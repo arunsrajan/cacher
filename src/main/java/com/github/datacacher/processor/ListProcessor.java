@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -145,5 +146,19 @@ public class ListProcessor implements Processor {
         }
         exchange.setProperty("ListPayload",lists.get(request.getListName()));
         exchange.setProperty("ListStatusMessage", "List obtained successfully");
+    }
+
+    public synchronized void sortAndGetList(Exchange exchange) throws Exception {
+        ConcurrentMap<String, ConcurrentMap<String, List>> map = (ConcurrentMap<String, ConcurrentMap<String, List>>) exchange.getProperty("CachePayload");
+        ListRequest request = (ListRequest) exchange.getProperty(LISTREQUEST);
+        ConcurrentMap<String, List> lists = (ConcurrentMap<String, List>) map.get(LIST);
+        if (Objects.isNull(lists)||
+                !lists.containsKey(request.getListName())) {
+            throw new ListException(LISTTOBECREATED);
+        }
+        List listToSort = lists.get(request.getListName());
+        Collections.sort(listToSort);
+        exchange.setProperty("ListPayload", listToSort);
+        exchange.setProperty("ListStatusMessage", "List sorted successfully");
     }
 }

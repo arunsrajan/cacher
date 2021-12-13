@@ -16,6 +16,7 @@ public class RouteConstants {
     public static final String LIST_ADD_ROUTE = "direct:listAdd";
     public static final String LIST_GET_ROUTE = "direct:listGet";
     public static final String LIST_UPDATE_ROUTE = "direct:listUpdate";
+    public static final String LIST_SORT_ROUTE = "direct:listSort";
 
     //List Routes
     public static final String MAP_CREATE_ROUTE = "direct:mapCreate";
@@ -39,6 +40,7 @@ public class RouteConstants {
     public static final String ADD_LIST_ID = "ADD_LIST_ID";
     public static final String GET_LIST_ID = "GET_LIST_ID";
     public static final String UPDATE_LIST_ID = "UPDATE_LIST_ID";
+    public static final String SORT_LIST_VALUES_ID = "SORT_LIST_VALUES_ID";
 
     //Map Route Ids
     public static final String CREATE_MAP_ID = "CREATE_MAP_ID";

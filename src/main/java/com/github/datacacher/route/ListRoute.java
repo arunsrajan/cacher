@@ -92,5 +92,18 @@ public class ListRoute extends RouteBuilder {
                 .setProperty(AUDIT, simple("Values for list ${exchangeProperty[LIST_REQUEST].listName} Removed successfully..."))
                 .bean("cacheProcessor", "auditCache");
 
+        from(LIST_SORT_ROUTE).routeId(SORT_LIST_VALUES_ID)
+                .onCompletion()
+                .log("List ${exchangeProperty[LIST_REQUEST].listName} sorted successfully...")
+                .end()
+                .setProperty(LISTREQUEST, body())
+                .bean("listProcessor", "buildCacheAndListRequest")
+                .to(CACHE_GET_ROUTE)
+                .bean("listValidator", "validate")
+                .bean("listProcessor", "sortAndGetList")
+                .bean("listProcessor", "processResponse")
+                .setProperty(AUDIT, simple("List ${exchangeProperty[LIST_REQUEST].listName} sorted successfully..."))
+                .bean("cacheProcessor", "auditCache");
+
     }
 }
