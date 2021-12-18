@@ -23,3 +23,9 @@ mvn clean package -Dmaven.test.skip=true
 ### Building the client jar
 ---------------------------
 mvn clean jar:jar install -Dmaven.test.skip=true -Dspring-boot.repackage.skip=true
+
+### Eureka and hawtio server 1
+java -jar -Dserver.port=8080 -Dcache.api.port=8081 cacher-0.0.1-SNAPSHOT.jar
+
+### Eureka and hawtio server 1
+java -jar -Dserver.port=8082 -Dcache.api.port=8083 -Deureka.port=8080 cacher-0.0.1-SNAPSHOT.jar
