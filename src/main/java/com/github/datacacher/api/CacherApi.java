@@ -20,6 +20,9 @@ public class CacherApi extends RouteBuilder {
     @Value("${cache.baseurl}")
     public String baseUrl;
 
+    @Value("${cache.api.port}")
+    public Integer port;
+
     @Override
     public void configure() throws Exception {
         restConfiguration().component("netty-http").bindingMode(RestBindingMode.json)
@@ -27,7 +30,7 @@ public class CacherApi extends RouteBuilder {
                 // and output using pretty print
                 .dataFormatProperty("prettyPrint", "true")
                 // setup context path and port number that netty will use
-                .contextPath(baseUrl).port(8081)
+                .contextPath(baseUrl).port(port)
                 // add swagger api-doc out of the box
                 .apiContextPath("/api-doc")
                 .apiProperty("api.title", "User API").apiProperty("api.version", "1.2.3")
