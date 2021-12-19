@@ -33,7 +33,8 @@ public class CacherApi extends RouteBuilder {
                 .contextPath(baseUrl).port(port)
                 // add swagger api-doc out of the box
                 .apiContextPath("/api-doc")
-                .apiProperty("api.title", "User API").apiProperty("api.version", "1.2.3")
+                .apiProperty("api.title", "User API")
+                .apiProperty("api.version", "1.0")
                 // and enable CORS
                 .apiProperty("cors", "true");
 

@@ -1,0 +1,1 @@
+"C:\Program Files\Java\jre1.8.0_201\bin\java" -jar -Dserver.port=8083 -Dcache.api.port=8084 -Deureka.port=8082 -Dcacher.name=cacher1 -Dcacher1.name=cacher1 -Dcacher2.name=cacher2 cacher-0.0.1-SNAPSHOT.jar
