@@ -4,6 +4,7 @@ import com.github.datacacher.exceptions.ListException;
 import com.github.datacacher.exceptions.MapException;
 import com.github.datacacher.model.MapRequest;
 import org.apache.camel.Exchange;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -13,6 +14,7 @@ import static com.github.datacacher.constants.MapConstants.MANDATORYFIELDMAPNAME
 import static com.github.datacacher.constants.MapConstants.MAPREQUEST;
 
 @Component("mapValidator")
+@Profile("cacherApi")
 public class MapValidator {
     public void validate(Exchange exchange) throws MapException {
         MapRequest request = (MapRequest) exchange.getProperty(MAPREQUEST);

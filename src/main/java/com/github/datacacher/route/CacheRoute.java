@@ -2,12 +2,14 @@ package com.github.datacacher.route;
 
 import com.github.datacacher.exceptions.CacheException;
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import static com.github.datacacher.constants.CacheConstants.*;
 import static com.github.datacacher.constants.RouteConstants.*;
 
 @Component
+@Profile("cacherApi")
 public class CacheRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {

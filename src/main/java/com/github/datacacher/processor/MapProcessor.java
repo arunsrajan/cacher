@@ -5,6 +5,7 @@ import com.github.datacacher.model.MapRequest;
 import com.github.datacacher.model.MapResponse;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -16,6 +17,7 @@ import static com.github.datacacher.constants.CacheConstants.CACHENAME;
 import static com.github.datacacher.constants.MapConstants.*;
 
 @Component("mapProcessor")
+@Profile("cacherApi")
 public class MapProcessor implements Processor {
 
     public void buildCacheRequest(Exchange exchange) throws Exception {

@@ -1,50 +1,31 @@
 spring:
   application:
-    name: CACHER1
+    name: ${application.name}
   profiles:
     active: noauth
   main:
     web-environment: true
-    web-application-type: reactive
+    web-application-type: servlet
     allow-bean-definition-overriding: true
-
-  ## GATEWAY CONFIGURATIONS
-  cloud:
-    gateway:
-      routes:
-        ## CACHER1 SERVICE
-        - id: CACHER1
-          uri: http://localhost:8084
-          predicates:
-            - Path=/cacher1/**
-            - Method=GET,POST
-        #  filters:
-        #    - StripPrefix=1
-        ## CACHER2 SERVICE
-        - id: CACHER2
-          uri: http://localhost:8086
-          predicates:
-            - Path=/cacher2/**
-         # filters:
-         #   - StripPrefix=1
 
 server:
   port: 8080
+
+camel:
+  component:
+    servlet:
+      mapping:
+        context-path: /${cacher.name}/api/v1/*
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8082/eureka
-    fetch-registry: true
+    fetch-registry: false
     register-with-eureka: true
   instance:
     hostname: localhost
     prefer-ip-address: true
-
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    reactor.netty.http.client: DEBUG
 
 cache:
   baseurl: /${cacher.name}/api/v1

@@ -4,12 +4,14 @@ import com.github.datacacher.exceptions.CacheException;
 import com.github.datacacher.model.CacheRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import static com.github.datacacher.constants.CacheConstants.*;
 import static java.util.Objects.isNull;
 
 @Component("cacheValidator")
+@Profile("cacherApi")
 public class CacheValidator {
 
     public void validate(@Header(CACHENAME) String cacheName) throws CacheException {

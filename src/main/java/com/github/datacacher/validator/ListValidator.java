@@ -3,6 +3,7 @@ package com.github.datacacher.validator;
 import com.github.datacacher.exceptions.ListException;
 import com.github.datacacher.model.ListRequest;
 import org.apache.camel.Exchange;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -12,6 +13,7 @@ import static com.github.datacacher.constants.ListConstants.LISTREQUEST;
 import static com.github.datacacher.constants.ListConstants.MANDATORYFIELDLISTNAME;
 
 @Component("listValidator")
+@Profile("cacherApi")
 public class ListValidator {
 
     public void validate(Exchange exchange) throws ListException {

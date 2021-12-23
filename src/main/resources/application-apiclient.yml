@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: ${application.name}
+  profiles:
+    active: noauth
+  main:
+    web-environment: true
+    web-application-type: reactive
+    allow-bean-definition-overriding: true
+
+  ## GATEWAY CONFIGURATIONS
+  cloud:
+    gateway:
+      routes:
+        ## CACHER1 SERVICE
+        - id: CACHER1
+          uri: lb://CACHER1
+          predicates:
+            - Path=/cacher1/**
+            - Method=GET,POST
+        #  filters:
+        #    - StripPrefix=1
+        ## CACHER2 SERVICE
+        - id: CACHER2
+          uri: lb://CACHER2
+          predicates:
+            - Path=/cacher2/**
+         # filters:
+         #   - StripPrefix=1
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8082/eureka
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG

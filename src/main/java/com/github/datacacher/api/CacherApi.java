@@ -4,6 +4,7 @@ import com.github.datacacher.model.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.core.MediaType;
@@ -15,22 +16,20 @@ import static com.github.datacacher.constants.RouteConstants.*;
 
 
 @Component("cacherApi")
+@Profile("cacherApi")
 public class CacherApi extends RouteBuilder {
 
     @Value("${cache.baseurl}")
     public String baseUrl;
 
-    @Value("${cache.api.port}")
-    public Integer port;
-
     @Override
     public void configure() throws Exception {
-        restConfiguration().component("netty-http").bindingMode(RestBindingMode.json)
+        restConfiguration().component("servlet").bindingMode(RestBindingMode.json)
                 .enableCORS(true)
                 // and output using pretty print
                 .dataFormatProperty("prettyPrint", "true")
                 // setup context path and port number that netty will use
-                .contextPath(baseUrl).port(port)
+                .contextPath(baseUrl)
                 // add swagger api-doc out of the box
                 .apiContextPath("/api-doc")
                 .apiProperty("api.title", "User API")

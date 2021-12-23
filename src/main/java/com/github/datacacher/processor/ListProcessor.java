@@ -11,6 +11,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import static com.github.datacacher.constants.CacheConstants.CACHENAME;
 import static com.github.datacacher.constants.ListConstants.*;
 
 @Component("listProcessor")
+@Profile("cacherApi")
 public class ListProcessor implements Processor {
     @Autowired
     CacheManager cacheManager;

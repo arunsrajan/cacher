@@ -2,6 +2,7 @@ package com.github.datacacher.cache;
 
 import com.github.datacacher.exceptions.CacheManagerException;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.github.datacacher.cache.CacheManager.isCacheManagerInitialized;
 
 @Component
+@Profile("cacherApi")
 public class CacheManagerBuilder {
     @Bean
     public CacheManager cacheManager() throws CacheManagerException {

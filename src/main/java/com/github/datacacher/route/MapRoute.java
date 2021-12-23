@@ -3,6 +3,7 @@ package com.github.datacacher.route;
 import com.github.datacacher.exceptions.ListException;
 import com.github.datacacher.exceptions.MapException;
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import static com.github.datacacher.constants.CacheConstants.AUDIT;
@@ -11,6 +12,7 @@ import static com.github.datacacher.constants.MapConstants.MAPREQUEST;
 import static com.github.datacacher.constants.RouteConstants.*;
 
 @Component("mapRoute")
+@Profile("cacherApi")
 public class MapRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
